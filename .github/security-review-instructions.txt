@@ -1,0 +1,6 @@
+Project: Angular SPA built into a Node container and deployed to Kubernetes via Helm/Skaffold/Jenkins X.
+Pay special attention to:
+- Angular XSS sinks: bypassSecurityTrust*, [innerHTML] with untrusted data, direct DOM manipulation.
+- Dockerfile: end-of-life base images, running as root, copying the whole build context (secrets, .git) into the image.
+- Helm/Kubernetes: missing securityContext (runAsNonRoot, readOnlyRootFilesystem, drop capabilities), no resource limits, deprecated APIs.
+- Jenkinsfile: credentials echoed to logs, shell injection from branch names or other user-controlled values.
